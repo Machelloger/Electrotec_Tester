@@ -11,12 +11,15 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "transpile:electron": "tsc --project src/electron/tsconfig.json",
-    "dist:mac":"npm run transpile:electron && npm run build && electron-builder --mac --arm64",
-    "dist:win":"npm run transpile:electron && npm run build && electron-builder --win --x64",
-    "dist:linux":"npm run transpile:electron && npm run build && electron-builder --linux --x64"
+    "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
+    "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",
+    "dist:linux": "npm run transpile:electron && npm run build && electron-builder --linux --x64"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
+    "electron-store": "^11.0.2",
     "react": "^19.1.0",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {

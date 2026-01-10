@@ -1,19 +1,40 @@
 import '../App.css'
+import './pagesStyle.css'
+import Logo from '../assets/Logo.svg'
+import Exit from '../assets/exit.svg'
+
 
 type ParentProps = {
   changePage: (pageName: string) => void
 }
 
-const Home = (props:ParentProps ) => {
+const Home = (props: ParentProps) => {
+
+  const studentExit = () => {
+    props.changePage('login');
+  }
 
   return (
-    <>
-      <button onClick={() => {props.changePage('login')}}>
-        go to login page
-      </button>
-      <p>Home page</p>
-    </>
+    <div style={{padding: '5vh 0 15vh 0', width: '35vw', height: '100vh', backgroundColor: 'rgba(203,212,223,0.75)', display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'space-between'}}>
+      <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+        <img width='125px' src={Logo} alt='logo' />
+      </div>
+      <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+
+      </div>
+      <div className='userFeedBlock'>
+        <div>
+          Имя Фамилия Отчетсво
+        </div>
+        <div>
+          Группа
+        </div>
+        <button onClick={() => {studentExit()}} style={{backgroundColor: '#CBD4DF', width: '60px', minHeight: "25px", padding: '2px'}}> 
+        <img width='25px' src={Exit} alt='exit' />
+        </button>
+      </div>
+    </div>
   )
 }
 
-export default Home
+export default Home;
