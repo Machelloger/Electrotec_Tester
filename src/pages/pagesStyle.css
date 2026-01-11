@@ -1,0 +1,27 @@
+.hint {
+    cursor: pointer;
+    font-size: .7em;
+    color: #0D6190;
+    transition: filter 0.3s ease;
+    filter: brightness(1);
+}
+
+.hint:hover {
+    filter: brightness(.8);
+}
+
+.userFeedBlock {
+    position: fixed;
+    left: 2vw;
+    top: 2vh;
+}
+
+.userFeedBlock>div {
+    min-width: 300px;
+    background-color: #CBD4DF;
+    border-radius: 5px;
+    margin: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

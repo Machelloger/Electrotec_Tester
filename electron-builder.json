@@ -1,0 +1,21 @@
+{
+  "appId": "com.testing.system",
+  "productName": "Testing System",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist-electron/**/*",
+    "dist/**/*"
+  ],
+  "mac": {
+    "category": "public.app-category.education"
+  },
+  "win": {
+    "target": "nsis"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Education"
+  }
+}
