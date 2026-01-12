@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useFileSystem } from '../hooks/useFileSystem';
 import './FileViewer.css';
 import Exit from '../assets/exit.svg'
+import CheckLastTester from './CheckLastTesters'
 
 interface FileItem {
   name: string;
@@ -202,6 +203,7 @@ function FileViewer(props: ParentProps) {
 
         {/* Правая панель - содержимое */}
         <div className="file-content">
+          <CheckLastTester />
           {selectedFile ? (
             <>
               <h2>📄 {selectedFile.split('/').pop()}</h2>

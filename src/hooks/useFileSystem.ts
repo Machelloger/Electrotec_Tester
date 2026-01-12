@@ -4,6 +4,8 @@ import { useState } from 'react';
 declare global {
   interface Window {
     electronAPI: {
+      saveTestResult(result: { percentage: number; fullName: string; group: string; course: number; testName: string; score: number; maxScore: number; }): unknown;
+      getTestResults(): unknown;
       writeFile: any;
       getDataPath: () => Promise<string>;
       listDirectory: (dirPath: string) => Promise<any[]>;

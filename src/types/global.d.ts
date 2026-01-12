@@ -33,6 +33,10 @@ declare global {
       }>;
       
       // Добавьте другие функции которые у вас есть...
+      // Добавьте эти методы:
+      saveTestResult: (result: any) => Promise<{ success: boolean; error?: string }>;
+      getTestResults: () => Promise<any[]>;
+      getStudentResults?: (studentId: string) => Promise<any[]>; // опционально
     };
   }
 }

@@ -15,6 +15,36 @@ const TestComponent: React.FC<TestComponentProps> = ({
   onTestComplete,
   onBack
 }) => {
+
+  const [results, setResults] = useState<TestResult[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadResults = async () => {
+    setLoading(true);
+    try {
+      // Получаем результаты из Electron
+      const data = await window.electronAPI.getTestResults();
+      // Гарантируем, что это массив
+      const resultsArray = Array.isArray(data) ? data : [];
+      setResults(resultsArray);
+    } catch (error) {
+      console.error('Error loading results:', error);
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveExampleResult = async (data:{percentage: number;fullName: string;group: string;course: number;testName: string;score: number;maxScore: number;
+}) => {
+    const success = await window.electronAPI.saveTestResult(data);
+    
+    if (success) {
+      alert('Пример сохранен!');
+      loadResults();
+    }
+  };
+
   const { generateTest, isLoading, error } = useTestGenerator();
   
   const [questions, setQuestions] = useState<TestQuestion[]>([]);
@@ -86,6 +116,19 @@ const TestComponent: React.FC<TestComponentProps> = ({
     };
     setIsFinished(true);
     onTestComplete(result);
+
+    const results = {
+      percentage: finalScore/maxScore*100,
+      fullName: student.fullName,
+      group: student.group,
+      course: student.course,
+      testName: lab.labName,
+      score: finalScore,
+      maxScore: maxScore
+    }
+
+    saveExampleResult(results);
+
   };
 
   const currentQuestionData = questions[currentQuestion];

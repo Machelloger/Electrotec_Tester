@@ -30,14 +30,14 @@ export interface TestResult {
   fullName: string;
   group: string;
   course: number;
-  testName: string;  // например: "lab2-1", "lab2-2"
-  score: number;     // набранные баллы
-  maxScore: number;  // максимально возможные баллы
-  percentage: number; // процент выполнения
-  date: string;      // дата прохождения в формате ISO
-  answers: Array<{
+  testName: string;  // например: "lab2-1"
+  score: number;
+  maxScore: number;
+  percentage: number;
+  completedAt: string; // ISO строка даты
+  answers: {
     questionId: string;
-    isCorrect: boolean;
     selectedAnswer: number;
-  }>;
+    isCorrect: boolean;
+  }[];
 }

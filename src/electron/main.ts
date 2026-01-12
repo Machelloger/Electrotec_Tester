@@ -68,6 +68,15 @@ function registerIpcHandlers() {
   }
   
   console.log('📡 Регистрация IPC обработчиков...');
+
+  // Результаты тестов
+  ipcMain.handle('fs:save-test-result', async (event, result) => {
+    return await saveTestResult(result);
+  });
+
+  ipcMain.handle('fs:get-test-results', async () => {
+    return await getTestResults();
+  });
   
   ipcMain.handle('get-data-path', () => {
     return path.join(appDataPath, 'data');
@@ -164,6 +173,7 @@ function registerIpcHandlers() {
       
       // Удаляем старые данные
       await fs.remove(dataPath);
+      await clearTestResults();
       
       // Распаковываем новые
       await extract(filePaths[0], { dir: dataPath });
@@ -327,6 +337,61 @@ function findImageRecursive(dir:any, fileName:any):any {
 
   ipcHandlersRegistered = true;
   console.log('✅ IPC обработчики зарегистрированы');
+}
+
+// === ПРОСТОЙ КОД ДЛЯ РЕЗУЛЬТАТОВ ТЕСТОВ ===
+
+const resultsFilePath = path.join(appDataPath, 'data', 'test_results.json');
+
+// Сохранить результат теста
+async function saveTestResult(result: any): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Читаем существующие результаты
+    let allResults: any[] = [];
+    if (await fs.pathExists(resultsFilePath)) {
+      const content = await fs.readFile(resultsFilePath, 'utf-8');
+      allResults = JSON.parse(content);
+    }
+    
+    // Добавляем новый результат
+    allResults.push({
+      ...result,
+      id: `result_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      date: new Date().toISOString()
+    });
+    
+    // Сохраняем
+    await fs.writeFile(resultsFilePath, JSON.stringify(allResults, null, 2), 'utf-8');
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: String(error) };
+  }
+}
+
+// Получить все результаты
+async function getTestResults(): Promise<any[]> {
+  try {
+    if (!await fs.pathExists(resultsFilePath)) {
+      return [];
+    }
+    
+    const content = await fs.readFile(resultsFilePath, 'utf-8');
+    return JSON.parse(content);
+  } catch (error) {
+    console.error('Error reading results:', error);
+    return [];
+  }
+}
+
+// Очистить результаты (при импорте)
+async function clearTestResults(): Promise<void> {
+  try {
+    if (await fs.pathExists(resultsFilePath)) {
+      await fs.remove(resultsFilePath);
+    }
+  } catch (error) {
+    console.error('Error clearing results:', error);
+  }
 }
 
 // Создание окна
