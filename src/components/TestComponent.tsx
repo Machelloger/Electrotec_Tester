@@ -191,6 +191,30 @@ const TestComponent: React.FC<TestComponentProps> = ({
           <span className="question-number">Вопрос {currentQuestion + 1}</span>
           <span className="question-bank">Банк: {currentQuestionData.bankName}</span>
         </div>
+
+         {/* Отображение изображения - ПРОСТО ИСПОЛЬЗУЕМ ПУТЬ */}
+        {currentQuestionData.imagePath && (
+          <div className="question-image-container">
+            <img 
+              src={currentQuestionData.imagePath}  // ← тут будет "../../lab2-1/images/image1.png"
+              alt="Иллюстрация к вопросу"
+              className="question-image"
+              onError={(e) => {
+                console.error('Ошибка загрузки изображения:', currentQuestionData.imagePath);
+                // Можно показать сообщение об ошибке
+                const img = e.currentTarget;
+                img.style.display = 'none';
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'image-error';
+                errorDiv.textContent = 'Изображение не найдено';
+                img.parentNode?.appendChild(errorDiv);
+              }}
+              onLoad={() => {
+                console.log('Изображение загружено:', currentQuestionData.imagePath);
+              }}
+            />
+          </div>
+        )}
         
         <div className="question-text">
           {currentQuestionData.text}

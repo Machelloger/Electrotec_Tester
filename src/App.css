@@ -835,3 +835,45 @@ body::-webkit-scrollbar {
   padding: 40px 20px;
   color: #f44336;
 }
+
+/* Стили для изображений вопросов */
+.question-image-container {
+  margin: 20px 0;
+  text-align: center;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.question-image {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: block;
+  margin: 0 auto;
+}
+
+.image-error {
+  color: #f44336;
+  font-size: 14px;
+  padding: 10px;
+  background: #ffebee;
+  border-radius: 4px;
+  border: 1px solid #ffcdd2;
+  margin-top: 10px;
+}
+
+/* Для маленьких экранов */
+@media (max-width: 768px) {
+  .question-image {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .question-image {
+    max-height: 200px;
+  }
+}

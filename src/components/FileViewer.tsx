@@ -49,6 +49,7 @@ function FileViewer(props: ParentProps) {
 
   const loadDirectory = async (path: string) => {
     const files = await listDirectory(path);
+    console.log(files);
     setFiles(files);
     setCurrentPath(path);
     setSelectedFile(null);

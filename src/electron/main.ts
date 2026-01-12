@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, protocol } from 'electron';
 import path from 'path';
 import fs from 'fs-extra';
 
@@ -174,41 +174,127 @@ function registerIpcHandlers() {
     }
   });
 
-  // Обработчик для изображений
-  ipcMain.handle('read-image', async (event, imagePath) => {
+  ipcMain.handle('write-file', async (event, filePath, content) => {
     try {
-      const fullPath = path.join(appDataPath, 'data', imagePath);
+      const fullPath = path.resolve(process.cwd(), filePath);
       
-      if (!await fs.pathExists(fullPath)) {
-        return { success: false, error: 'Image not found' };
+      // Создаем директории если их нет
+      const dir = path.dirname(fullPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
       }
       
-      // Читаем файл как buffer
-      const imageBuffer = await fs.readFile(fullPath);
-      
-      // Конвертируем в base64
-      const base64Image = imageBuffer.toString('base64');
-      
-      // Определяем MIME тип по расширению
-      const ext = path.extname(fullPath).toLowerCase();
-      let mimeType = 'image/png';
-      
-      if (ext === '.jpg' || ext === '.jpeg') {
-        mimeType = 'image/jpeg';
-      } else if (ext === '.gif') {
-        mimeType = 'image/gif';
-      } else if (ext === '.bmp') {
-        mimeType = 'image/bmp';
-      }
-      
-      return { 
-        success: true, 
-        data: `data:${mimeType};base64,${base64Image}` 
-      };
+      await fs.promises.writeFile(fullPath, content, 'utf8');
+      return { success: true };
     } catch (error) {
-      return { success: false, error: String(error) };
+      console.error('Ошибка записи файла:', error);
+      return { success: false, error: error };
     }
   });
+
+  // Обработчик для изображений
+  // ДОБАВЛЯЕМ ОБРАБОТЧИК ДЛЯ ЧТЕНИЯ ИЗОБРАЖЕНИЙ
+ipcMain.handle('read-image', async (event, imagePath, labInfo) => {
+  try {
+    console.log('Чтение изображения:', imagePath, 'для лабы:', labInfo);
+    
+    const appDataPath = app.getPath('userData');
+    const dataPath = path.join(appDataPath, 'testing_system_data', 'data');
+    
+    let fullPath;
+    
+    // Вариант 1: Если передано только имя файла (image1.png)
+    if (!imagePath.includes('/') && !imagePath.includes('\\')) {
+      // Пытаемся найти в структуре курса/лабы
+      if (labInfo && labInfo.course && labInfo.labName) {
+        // Ищем в: data/{course}kurs/{labName}/images/{fileName}
+        fullPath = path.join(
+          dataPath, 
+          `${labInfo.course}kurs`, 
+          labInfo.labName, 
+          'images', 
+          imagePath
+        );
+        console.log('Путь с лабой:', fullPath);
+      } else {
+        // Ищем во всех images
+        fullPath = path.join(dataPath, 'images', imagePath);
+      }
+    } 
+    // Вариант 2: Если путь относительный (../images/image1.png)
+    else if (imagePath.includes('../') && labInfo) {
+      // Преобразуем: ../images/image1.png → {course}kurs/{labName}/images/image1.png
+      const normalized = imagePath.replace('../', '');
+      fullPath = path.join(
+        dataPath,
+        `${labInfo.course}kurs`,
+        labInfo.labName,
+        normalized
+      );
+    }
+    // Вариант 3: Если путь уже содержит курс/лабу
+    else {
+      fullPath = path.join(dataPath, imagePath);
+    }
+    
+    console.log('Ищем по пути:', fullPath);
+    
+    if (!fs.existsSync(fullPath)) {
+      console.error('Файл не найден, пробуем поиск...');
+      
+      // Попробуем найти файл рекурсивно
+      const found = findImageRecursive(dataPath, path.basename(imagePath));
+      if (found) {
+        console.log('Найден рекурсивно:', found);
+        fullPath = found;
+      } else {
+        return { 
+          success: false, 
+          error: 'Файл не найден: ' + fullPath 
+        };
+      }
+    }
+    
+    // Читаем файл
+    const imageBuffer = fs.readFileSync(fullPath);
+    const base64 = imageBuffer.toString('base64');
+    
+    const ext = path.extname(fullPath).toLowerCase();
+    let mimeType = 'image/jpeg';
+    if (ext === '.png') mimeType = 'image/png';
+    else if (ext === '.gif') mimeType = 'image/gif';
+    
+    const dataUrl = `data:${mimeType};base64,${base64}`;
+    
+    console.log('✓ Изображение загружено');
+    return { success: true, dataUrl };
+    
+  } catch (error) {
+    console.error('Ошибка:', error);
+    return { success: false, error: error };
+  }
+});
+
+// Функция для рекурсивного поиска изображения
+function findImageRecursive(dir:any, fileName:any):any {
+  try {
+    const files = fs.readdirSync(dir, { withFileTypes: true });
+    
+    for (const file of files) {
+      const fullPath = path.join(dir, file.name);
+      
+      if (file.isDirectory()) {
+        const found = findImageRecursive(fullPath, fileName);
+        if (found) return found;
+      } else if (file.name === fileName) {
+        return fullPath;
+      }
+    }
+  } catch (err) {
+    console.error('Ошибка поиска:', err);
+  }
+  return null;
+}
 
   // Обработчик для проверки типа файла
   ipcMain.handle('get-file-type', async (event, filePath) => {
@@ -252,8 +338,18 @@ async function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,  // ← ВАЖНО: добавляем эту строку
+      allowRunningInsecureContent: true,  // ← И эту строку тоже
     }
+  });
+
+  mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+    // Разрешаем загрузку локальных файлов - правильный синтаксис
+    if (details.requestHeaders.Origin) {
+      delete details.requestHeaders.Origin;
+    }
+    callback({ cancel: false, requestHeaders: details.requestHeaders });
   });
 
   mainWindow.maximize();
@@ -270,8 +366,7 @@ async function createWindow() {
     mainWindow.webContents.openDevTools();
     mainWindow.show();
   } else {
-    await mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
-    mainWindow.show();
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
 
   // Очистка при закрытии окна

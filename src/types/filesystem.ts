@@ -23,3 +23,21 @@ export interface Question {
   points: number;
   bankName: string;
 }
+
+export interface TestResult {
+  id: string;
+  studentId: string;
+  fullName: string;
+  group: string;
+  course: number;
+  testName: string;  // например: "lab2-1", "lab2-2"
+  score: number;     // набранные баллы
+  maxScore: number;  // максимально возможные баллы
+  percentage: number; // процент выполнения
+  date: string;      // дата прохождения в формате ISO
+  answers: Array<{
+    questionId: string;
+    isCorrect: boolean;
+    selectedAnswer: number;
+  }>;
+}
