@@ -4,11 +4,16 @@ import TestComponent from './TestComponent';
 import { Student, LabInfo, TestResult } from '../types/testing';
 import './StudentDashboard.css';
 
-interface StudentDashboardProps {
-  student: Student;
+type ParentProps = {
+  changePage: (pageName: string) => void
 }
 
-const StudentDashboard: React.FC<StudentDashboardProps> = ({ student }) => {
+interface StudentDashboardProps {
+  student: Student;
+  changePage: (pageName: string) => void;
+}
+
+const StudentDashboard: React.FC<StudentDashboardProps> = ({ student, changePage }) => {
   const [selectedLab, setSelectedLab] = useState<LabInfo | null>(null);
   const [testResult, setTestResult] = useState<TestResult | null>(null);
 
@@ -47,6 +52,7 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ student }) => {
               <div className="student-details">
                 <span className="student-group">{student.group}</span>
                 <span className="student-course">{student.course} курс</span>
+                <button onClick={() => {changePage('login')}}>Выход</button>
               </div>
             </div>
           </div>

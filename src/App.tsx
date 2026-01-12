@@ -38,7 +38,7 @@ function App() {
       case 'selectstudent':
         return <SelectStudentPage changePage={changePage} />
       case 'test':
-        return <StudentDashboard student={currentUser!}  />
+        return <StudentDashboard changePage={changePage} student={currentUser!}  />
     }
   };
 
