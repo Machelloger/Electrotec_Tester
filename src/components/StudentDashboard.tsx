@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LabSelector from './LabSelector';
 import TestComponent from './TestComponent';
 import { Student, LabInfo, TestResult } from '../types/testing';
+import './StudentDashboard.css';
 
 interface StudentDashboardProps {
   student: Student;
@@ -36,38 +37,45 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ student }) => {
   }
 
   return (
-    <div className="student-dashboard">
-      <div className="dashboard-header">
-        <h2>Кабинет студента</h2>
-        
-        <div className="student-card">
-          <div className="student-name">{student.fullName}</div>
-          <div className="student-info">
-            <span className="group">{student.group}</span>
-            <span className="course">{student.course} курс</span>
+    <div className="student-dashboard-container">
+      <div className="student-dashboard">
+        <div className="dashboard-content">
+          {/* Блок информации о студенте */}
+          <div className="student-info-block">
+            <div className="student-info-content">
+              <div className="student-name">{student.fullName}</div>
+              <div className="student-details">
+                <span className="student-group">{student.group}</span>
+                <span className="student-course">{student.course} курс</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Последний результат */}
+          {testResult && (
+            <div className="last-result">
+              <h3>Последний результат:</h3>
+              <div className="result-summary">
+                <span className="result-lab">{testResult.lab}</span>
+                <span className="result-score">
+                  {testResult.score} из {testResult.maxScore}
+                </span>
+                <span className="result-date">
+                  {new Date(testResult.completedAt).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Выбор лабораторной */}
+          <div className="lab-selector-container">
+            <LabSelector
+              studentCourse={student.course}
+              onLabSelect={handleLabSelect}
+            />
           </div>
         </div>
       </div>
-
-      {testResult && (
-        <div className="last-result">
-          <h3>Последний результат:</h3>
-          <div className="result-summary">
-            <span className="result-lab">{testResult.lab}</span>
-            <span className="result-score">
-              {testResult.score} из {testResult.maxScore}
-            </span>
-            <span className="result-date">
-              {new Date(testResult.completedAt).toLocaleDateString()}
-            </span>
-          </div>
-        </div>
-      )}
-
-      <LabSelector
-        studentCourse={student.course}
-        onLabSelect={handleLabSelect}
-      />
     </div>
   );
 };

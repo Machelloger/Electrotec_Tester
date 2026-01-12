@@ -1,0 +1,150 @@
+.lab-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.lab-selector h3 {
+    color: #0D6190;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+}
+
+.lab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lab-item {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.lab-item:hover {
+    border-color: #0D6190;
+    background-color: #f8f9fa;
+}
+
+.lab-item:active {
+    background-color: #e9ecef;
+}
+
+.lab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.lab-title {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lab-difficulty {
+    font-size: 13px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 12px;
+    font-weight: 500;
+}
+
+.lab-difficulty.easy {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.lab-difficulty.medium {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.lab-difficulty.hard {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.lab-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.lab-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: #999;
+    margin-top: 8px;
+}
+
+.lab-tasks {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .lab-selector h3 {
+        font-size: 16px;
+    }
+    
+    .lab-item {
+        padding: 14px;
+    }
+    
+    .lab-title {
+        font-size: 15px;
+    }
+    
+    .lab-description {
+        font-size: 13px;
+    }
+    
+    .lab-meta {
+        font-size: 12px;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .lab-selector {
+        gap: 10px;
+    }
+    
+    .lab-item {
+        padding: 12px;
+    }
+    
+    .lab-title {
+        font-size: 14px;
+    }
+    
+    .lab-difficulty {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+    
+    .lab-description {
+        font-size: 12px;
+    }
+    
+    .lab-meta {
+        font-size: 11px;
+        gap: 8px;
+    }
+}

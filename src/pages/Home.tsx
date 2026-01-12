@@ -1,41 +1,51 @@
 import '../App.css'
 import './pagesStyle.css'
+import './Home.css'
 import Logo from '../assets/Logo.svg'
 import Exit from '../assets/exit.svg'
 import { useUser } from '../contexts/UserContext'
-import { Button } from 'react-bootstrap'
-
 
 type ParentProps = {
   changePage: (pageName: string) => void
 }
 
 const Home = (props: ParentProps) => {
-
   const { setCurrentUser, currentUser, logout } = useUser();
 
   const studentExit = () => {
-    logout;
+    logout();
     props.changePage('login');
   }
 
   return (
-    <div style={{padding: '5vh 0 15vh 0', width: '35vw', height: '100vh', backgroundColor: 'rgba(203,212,223,0.75)', display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'space-between'}}>
-      <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-        <img width='125px' src={Logo} alt='logo' />
+    <div className="home-container">
+      <div className="logo-section">
+        <img src={Logo} alt='logo' className="logo" />
       </div>
-      <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
-        <button onClick={() => {props.changePage('test')}}>Тест лабы</button>
+      
+      <div className="main-content">
+        <button 
+          className="test-button"
+          onClick={() => {props.changePage('test')}}
+        >
+          Пройти лабораторные работы
+        </button>
       </div>
-      <div className='userFeedBlock'>
-        <div>
-          {currentUser?.fullName}
+      
+      <div className="user-feed-block">
+        <div className="user-info">
+          <div className="user-name">
+            {currentUser?.fullName}
+          </div>
+          <div className="user-group">
+            {currentUser?.group}
+          </div>
         </div>
-        <div>
-          {currentUser?.group}
-        </div>
-        <button onClick={() => {studentExit()}} style={{backgroundColor: '#CBD4DF', width: '60px', minHeight: "25px", padding: '2px'}}> 
-        <img width='25px' src={Exit} alt='exit' />
+        <button 
+          className="logout-button"
+          onClick={studentExit}
+        > 
+          <img src={Exit} alt='exit' className="logout-icon" />
         </button>
       </div>
     </div>

@@ -1,0 +1,237 @@
+/* Контейнер домашней страницы */
+.home-container {
+    padding: 5vh 0;
+    width: 35vw;
+    min-height: 100vh;
+    background-color: rgba(203,212,223,0.75);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* Логотип */
+.logo-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+}
+
+/* Основной контент */
+.main-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Кнопка теста */
+.test-button {
+    padding: 14px 32px;
+    background-color: #0D6190;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    width: 100%;
+    max-width: 250px;
+}
+
+.test-button:hover {
+    background-color: #0a4a70;
+}
+
+.test-button:active {
+    background-color: #083955;
+}
+
+/* Блок пользователя */
+.user-feed-block {
+    position: fixed;
+    top: 3vh;
+    left: 2vw;
+    width: 25vw;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    flex: 1;
+}
+
+.user-name {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-group {
+    color: #0D6190;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.logout-button {
+    background-color: #CBD4DF;
+    border: none;
+    width: 60px;
+    height: 40px;
+    min-height: 40px;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+.logout-button:hover {
+    background-color: #b8c4d1;
+}
+
+.logout-button:active {
+    background-color: #a5b3c4;
+}
+
+.logout-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .home-container {
+        width: 45vw;
+    }
+}
+
+@media (max-width: 992px) {
+    .home-container {
+        width: 55vw;
+    }
+    
+    .logo {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        width: 70vw;
+    }
+    
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .test-button {
+        padding: 12px 24px;
+        font-size: 15px;
+        max-width: 200px;
+    }
+    
+    .user-feed-block {
+        padding: 16px 20px;
+    }
+    
+    .user-name {
+        font-size: 15px;
+    }
+    
+    .user-group {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .home-container {
+        width: 85vw;
+        padding: 3vh 0;
+    }
+    
+    .logo {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .main-content {
+        padding: 0 16px;
+    }
+    
+    .test-button {
+        padding: 11px 20px;
+        font-size: 14px;
+        max-width: 180px;
+    }
+    
+    .user-feed-block {
+        padding: 14px 16px;
+    }
+    
+    .user-name {
+        font-size: 14px;
+    }
+    
+    .user-group {
+        font-size: 12px;
+    }
+    
+    .logout-button {
+        width: 50px;
+        height: 36px;
+    }
+    
+    .logout-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-height: 700px) {
+    .home-container {
+        padding: 3vh 0;
+    }
+    
+    .logo {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .user-feed-block {
+        padding: 16px 20px;
+    }
+}

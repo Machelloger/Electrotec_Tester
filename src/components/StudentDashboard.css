@@ -1,0 +1,277 @@
+/* Контейнер страницы */
+.student-dashboard-container {
+    padding: 5vh 0;
+    width: 35vw;
+    min-height: 100vh;
+    background-color: rgba(203,212,223,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Основной блок */
+.student-dashboard {
+    width: 100%;
+    max-width: 35vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Блок студента */
+.student-info-block {
+    width: 100%;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.student-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    flex: 1;
+}
+
+.student-name {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.student-details {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.2;
+    align-items: center;
+}
+
+.student-group {
+    color: #0D6190;
+    font-weight: 500;
+}
+
+.student-course {
+    color: #FF0000;
+    font-weight: 500;
+}
+
+/* Последний результат */
+.last-result {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #eee;
+}
+
+.last-result h3 {
+    color: #0D6190;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 12px 0;
+}
+
+.result-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.result-lab {
+    color: #000;
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-score {
+    color: #0D6190;
+    font-weight: 500;
+}
+
+.result-date {
+    color: #666;
+    font-size: 13px;
+}
+
+/* Список лабораторных */
+.lab-selector-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Стили скроллбара */
+.lab-selector-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.lab-selector-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.lab-selector-container::-webkit-scrollbar-thumb {
+    background: #99B1EF;
+    border-radius: 2px;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .student-dashboard-container {
+        width: 45vw;
+    }
+    
+    .student-dashboard {
+        max-width: 45vw;
+    }
+}
+
+@media (max-width: 992px) {
+    .student-dashboard-container {
+        width: 55vw;
+    }
+    
+    .student-dashboard {
+        max-width: 55vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .student-dashboard-container {
+        width: 70vw;
+    }
+    
+    .student-dashboard {
+        max-width: 70vw;
+    }
+    
+    .dashboard-content {
+        padding: 20px;
+        gap: 16px;
+    }
+    
+    .student-info-block {
+        padding: 14px 16px;
+    }
+    
+    .student-name {
+        font-size: 15px;
+    }
+    
+    .student-details {
+        font-size: 13px;
+        gap: 12px;
+    }
+    
+    .last-result {
+        padding: 14px;
+    }
+    
+    .last-result h3 {
+        font-size: 15px;
+    }
+    
+    .result-summary {
+        font-size: 13px;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .student-dashboard-container {
+        width: 85vw;
+    }
+    
+    .student-dashboard {
+        max-width: 85vw;
+        height: 85vh;
+    }
+    
+    .dashboard-content {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .student-info-block {
+        padding: 12px 14px;
+        margin-bottom: 12px;
+    }
+    
+    .student-name {
+        font-size: 14px;
+    }
+    
+    .student-details {
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .last-result {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .last-result h3 {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    
+    .result-summary {
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .result-date {
+        font-size: 11px;
+    }
+}
+
+@media (max-height: 700px) {
+    .student-dashboard {
+        height: 85vh;
+    }
+    
+    .dashboard-content {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .student-info-block {
+        padding: 12px 14px;
+        margin-bottom: 12px;
+    }
+}
