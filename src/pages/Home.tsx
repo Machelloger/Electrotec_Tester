@@ -3,6 +3,7 @@ import './pagesStyle.css'
 import Logo from '../assets/Logo.svg'
 import Exit from '../assets/exit.svg'
 import { useUser } from '../contexts/UserContext'
+import { Button } from 'react-bootstrap'
 
 
 type ParentProps = {
@@ -24,7 +25,7 @@ const Home = (props: ParentProps) => {
         <img width='125px' src={Logo} alt='logo' />
       </div>
       <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
-
+        <button onClick={() => {props.changePage('test')}}>Тест лабы</button>
       </div>
       <div className='userFeedBlock'>
         <div>
