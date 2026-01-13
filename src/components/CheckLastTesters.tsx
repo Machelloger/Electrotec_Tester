@@ -1,3 +1,4 @@
+import { features } from 'process';
 import React, { useEffect, useState } from 'react';
 
 interface TestResult {
@@ -31,6 +32,12 @@ const ResultsView = () => {
       setLoading(false);
     }
   };
+
+  const clearRezults = () => {
+    if (results.length > 0) {
+      setResults([]);
+    }
+  }
 
   useEffect(() => {
     loadResults();
@@ -66,6 +73,12 @@ const ResultsView = () => {
           Обновить
         </button>
       </div>
+
+      {/* <div style={{ marginBottom: '20px' }}>
+        <button onClick={clearRezults} style={{ marginRight: '10px' }}>
+          Очистить
+        </button>
+      </div> */}
 
       {results.length === 0 ? (
         <p>Нет результатов</p>

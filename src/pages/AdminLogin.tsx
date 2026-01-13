@@ -25,7 +25,7 @@ const AdminLogin = (props: ParentProps) => {
           <input type='password' name='пароль' onChange={(e) => {setPassword(e.target.value)}} value={password}/>
           <div onClick={() => {setShowA(true)}} className='hint'>Подсказка</div>
           </div>
-          <button onClick={() => {if (password === "") {props.changePage('adminPage')} else {setShowB(true)}}}>Войти</button>
+          <button onClick={() => {if (password === "1964") {props.changePage('adminPage')} else {setShowB(true)}}}>Войти</button>
         </div>
       </div>
       <Toast style={{position: 'absolute'}} show={showA} onClose={() => {setShowA(!showA)}}>
@@ -37,7 +37,7 @@ const AdminLogin = (props: ParentProps) => {
             />
             <strong className="me-auto">Подсказка</strong>
           </Toast.Header>
-          <Toast.Body>Придумаем подсказку</Toast.Body>
+          <Toast.Body>Год рождения</Toast.Body>
         </Toast>
         <Toast style={{position: 'absolute'}} show={showB} onClose={() => {setShowB(!showB)}}>
           <Toast.Header>

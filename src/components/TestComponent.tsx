@@ -139,8 +139,9 @@ const TestComponent: React.FC<TestComponentProps> = ({
       score: finalScore,
       maxScore: maxScore
     };
-
-    saveExampleResult(resultsData);
+    if (finalScore >= 3) {
+      saveExampleResult(resultsData);
+    }
   };
 
   const currentQuestionData = questions[currentQuestion];
@@ -190,7 +191,7 @@ const TestComponent: React.FC<TestComponentProps> = ({
                 <p><strong>Лабораторная:</strong> {lab.labName}</p>
               </div>
               
-              <div className="answers-review">
+              {/* <div className="answers-review">
                 <h4>Правильные/неправильные ответы:</h4>
                 {questions.map((question, index) => {
                   const selectedAnswer = answers[index];
@@ -208,7 +209,7 @@ const TestComponent: React.FC<TestComponentProps> = ({
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
               
               <button onClick={onBack} className="back-btn">
                 Вернуться
