@@ -418,6 +418,8 @@ async function createWindow() {
   });
 
   mainWindow.maximize();
+  mainWindow.setFocusable(true);
+  mainWindow.focus();
 
   // Инициализация данных
   await initializeDataStructure();

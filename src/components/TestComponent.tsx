@@ -241,13 +241,6 @@ const TestComponent: React.FC<TestComponentProps> = ({
             ← Назад
           </button>
           
-          <div className="test-info">
-            <h3>Тестирование: {lab.labName}</h3>
-            <div className="progress">
-              Вопрос {currentQuestion + 1} из {questions.length}
-            </div>
-          </div>
-          
           <div className="student-info-short">
             {student.fullName} | {student.group}
           </div>

@@ -23,8 +23,8 @@ function App() {
     setCurrentPage(pageName);
   };
 
-  const renderPage = () => {
-    switch (currentPage) {
+  const renderPage = (page: string) => {
+    switch (page) {
       case 'home':
         return <Home changePage={changePage} />;
       case 'login':
@@ -43,9 +43,9 @@ function App() {
   };
 
   return (
-      <div className='app' style={{backgroundImage: `url(${bgImage})`, height: '100vh', backgroundSize: 'cover'}}>
+      <div key={currentPage} className='app' style={{backgroundImage: `url(${bgImage})`, height: '100vh', backgroundSize: 'cover'}}>
         {
-        renderPage()
+        renderPage(currentPage)
         }
       </div>
   )
